@@ -15,7 +15,7 @@ curl -L -o fhir-validator-cli.jar https://github.com/spilikin/fhir-validator-cli
 
 == Validating SUSHI Generated Resources
 
-The `sushi`` subcommand is used to validate the generated resources in a SUSHI project. 
+The `sushi` subcommand is used to validate the generated resources in a SUSHI project. 
 
 Before running `fhir-validator-cli`, ensure that all dependencies are installed locally. Use the Firely Terminal command `fhir restore`.
 
