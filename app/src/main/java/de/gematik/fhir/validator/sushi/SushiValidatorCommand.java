@@ -17,8 +17,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
@@ -39,7 +37,7 @@ public class SushiValidatorCommand implements Callable<Integer> {
     private Path sushiGeneratedResourcesDir = null;
 
     @CommandLine.Parameters(description = "Specific files to validate")
-    private List<Path> filesToValidate = null;
+    private final List<Path> filesToValidate = null;
 
     @CommandLine.Option(names = {"-i", "--ignore-ids"}, description = "Specify message ids to be ignored")
     private final List<String> ignoreMessageIds = List.of("SD_TYPE_NOT_LOCAL");
@@ -79,7 +77,7 @@ public class SushiValidatorCommand implements Callable<Integer> {
 
         List<FileValidationResult> validationResults;
 
-        if (filesToValidate != null) {
+        if (this.filesToValidate != null) {
             validationResults = filesToValidate.stream()
                     .map(path -> {
                         return validateResource(path, validator);
@@ -103,10 +101,10 @@ public class SushiValidatorCommand implements Callable<Integer> {
                 }
                 System.out.printf("[%s:(%d,%d): %S %s: %s]%n",
                         fileValidationResult.filePath,
-                        message.getLocationLine(),
-                        message.getLocationCol(),
+                        defaultIfNull(message.getLocationLine(), 1),
+                        defaultIfNull(message.getLocationCol(), 1),
                         message.getSeverity(),
-                        message.getMessageId(),
+                        defaultIfNull(message.getMessageId(), "GENERIC"),
                         message.getMessage()
                 );
                 if (message.getSeverity() == ResultSeverityEnum.ERROR) {
@@ -123,9 +121,9 @@ public class SushiValidatorCommand implements Callable<Integer> {
         return 0;
     }
 
-    private class FileValidationResult {
-        private Path filePath;
-        private ValidationResult validationResult;
+    private static class FileValidationResult {
+        private final Path filePath;
+        private final ValidationResult validationResult;
 
         public FileValidationResult(Path filePath, ValidationResult validationResult) {
             this.filePath = filePath;
@@ -146,5 +144,13 @@ public class SushiValidatorCommand implements Callable<Integer> {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private <T> T defaultIfNull(T value, T defaultValue) {
+        if (value == null) {
+            return defaultValue;
+        } else {
+            return value;
+        }
     }
 }
