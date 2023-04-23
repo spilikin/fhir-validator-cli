@@ -10,7 +10,9 @@ FHIR Validator CLI is a flexible validation tool based on link:https://hapifhir.
 
 [source,bash,subs="attributes"]
 ----
-curl -L -o fhir-validator-cli.jar https://github.com/spilikin/fhir-validator-cli/releases/download/{latest-version}/fhir-validator-cli.jar
+curl -L \
+  https://github.com/spilikin/fhir-validator-cli/releases/download/{latest-version}/fhir-validator-cli.jar \
+  -o fhir-validator-cli.jar 
 ----
 
 == Validating SUSHI Generated Resources
