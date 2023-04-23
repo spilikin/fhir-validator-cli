@@ -1,5 +1,5 @@
 = 🔥✅ FHIR Validator CLI
-:latest-version: 0.2.0
+:latest-version: 0.1.0
 
 FHIR Validator CLI is a flexible validation tool based on link:https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html[HAPI FHIR Validator]. It comes pre-configured for various validation scenarios, including SUSHI project validations. This user-friendly CLI streamlines the process of validating FHIR resources, ensuring consistency and accuracy in your FHIR projects.
 
