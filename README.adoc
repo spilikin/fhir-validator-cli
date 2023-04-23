@@ -1,0 +1,39 @@
+= 🔥✅ FHIR Validator CLI
+
+FHIR Validator CLI is a flexible validation tool based on link:https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html[HAPI FHIR Validator]. It comes pre-configured for various validation scenarios, including SUSHI project validations. This user-friendly CLI streamlines the process of validating FHIR resources, ensuring consistency and accuracy in your FHIR projects.
+
+== Installation
+
+* Make sure to have Java 17 or later installed on your system.
+* Get the latest release of `fhir-validator-cli` from https://github.com/spilikin/fhir-validator-cli/releases. Download the `fhir-validator-cli.jar` file and save it to a convenient location on your system.
+
+You can use curl to download the `fhir-validator-cli.jar` file from the GitHub releases page. Replace `<version>` with the desired release version in the URL:
+
+[source,bash]
+----
+curl -L -o fhir-validator-cli.jar https://github.com/spilikin/fhir-validator-cli/releases/download/<version>/fhir-validator-cli.jar
+----
+
+== Validating SUSHI Generated Resources
+
+The `sushi`` subcommand is used to validate the generated resources in a SUSHI project. 
+
+Before running `fhir-validator-cli`, ensure that all dependencies are installed locally. Use the Firely Terminal command `fhir restore`.
+
+.To validate Sushi project, execute following command in project directory:
+[source,bash]
+----
+java -jar java -jar fhir-validator-cli.jar sushi
+----
+
+.Validate all generated resources in a specific SUSHI project directory:
+[source,bash]
+----
+java -jar fhir-validator-cli.jar sushi -p /path/to/sushi/project
+----
+
+.Validate specific files in a SUSHI project directory against referenced profiles:
+[source,bash]
+----
+java -jar fhir-validator-cli.jar sushi fsh-generated/resources/patient.json fsh-generated/resources/observation.json
+----
