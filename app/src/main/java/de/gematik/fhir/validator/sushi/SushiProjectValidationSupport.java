@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,13 +66,12 @@ public class SushiProjectValidationSupport extends PrePopulatedValidationSupport
     }
 
     private void loadDependencies() throws ValidatorException, IOException {
-        Path packageJsonFile = findPackageJsonFile(sushiProjectDirectory);
+        SushiConfig sushiConfig = new SushiConfig(this.sushiProjectDirectory);
+        Collection<SushiConfig.SushiDependency> sushiDependencies = sushiConfig.getDependencies();
 
-        if (packageJsonFile == null) {
-            throw new FileNotFoundException(String.format("File package.json not found in folder (or it's parents): %s", sushiProjectDirectory));
+        for (SushiConfig.SushiDependency sushiDependency: sushiDependencies ) {
+            loadPackage(sushiDependency.packageName, sushiDependency.packageVersion);
         }
-
-        resolveDependencies(packageJsonFile);
     }
 
     private Path findPackageJsonFile(Path dir) {

@@ -45,7 +45,7 @@ public class SushiValidatorCommand implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         if (!sushiProjectDir.toFile().exists()) {
-            throw new ValidatorException(String.format("SUSHI Project directory does not exists: %s", sushiProjectDir));
+            throw new ValidatorException(String.format("SUSHI Project directory does not exist: %s", sushiProjectDir));
         }
 
         if (sushiGeneratedResourcesDir == null) {
@@ -55,6 +55,7 @@ public class SushiValidatorCommand implements Callable<Integer> {
         if (!sushiGeneratedResourcesDir.toFile().exists()) {
             throw new ValidatorException(String.format("FSH generated resources directory not found: %s", sushiGeneratedResourcesDir));
         }
+        
         FhirContext ctx = FhirContext.forR4();
 
         // Configure Sushi project validation support
